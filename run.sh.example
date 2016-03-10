@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+set -o errexit
+set -o pipefail
+
+cd "$(dirname "$0")"
+
+if ! [ -d venv ]; then
+    rm -rf venv
+    virtualenv venv
+    pip install -r requirements.txt
+    . venv/bin/activate
+else
+    . venv/bin/activate
+fi
+
+export BLOG='davemarianieveryday'
+
+export CONSUMER_KEY='<CONSUMER_KEY_HERE>'
+export CONSUMER_SECRET='<CONSUMER_SECRET_HERE>'
+export OAUTH_TOKEN='<OAUTH_TOKEN_HERE>'
+export OAUTH_TOKEN_SECRET='<OAUTH_TOKEN_SECRET_HERE>'
+
+python ./photo2tumblr.py
